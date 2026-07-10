@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m venv .venv)",
+      "Bash(.venv/Scripts/python.exe -m pip install --upgrade pip -q)",
+      "Bash(.venv/Scripts/python.exe -m pip install -e \".[dev]\" -q)",
+      "Bash(.venv/Scripts/python.exe -m pytest -q)",
+      "Bash(.venv/Scripts/python.exe -c ' *)",
+      "Bash(./.venv/Scripts/python.exe -m pip install --upgrade pip -q)",
+      "Bash(./.venv/Scripts/python.exe -m pip install -e \".[dev]\" -q)",
+      "Bash(./.venv/Scripts/python.exe -m pytest -q)",
+      "Bash(npm install *)",
+      "Bash(timeout 50 npm run dev)",
+      "Bash(echo \"=== exit: $? ===\")",
+      "Read(//tmp/**)",
+      "Bash(node install.js)",
+      "Bash(echo \"=== exit $? ===\")",
+      "Bash(echo \"=== EXIT $? ===\")"
+    ]
+  }
+}

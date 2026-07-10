@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    @apply bg-bg text-text font-sans antialiased;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border-strong rounded;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@layer components {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    @apply font-mono;
+  }
+
+  /* Region the OS treats as a window-drag handle (custom title bar). */
+  .drag-region {
+    -webkit-app-region: drag;
+  }
+  .no-drag {
+    -webkit-app-region: no-drag;
+  }
+
+  /* Compact form control used in modals/forms. */
+  .input {
+    -webkit-app-region: no-drag;
+    @apply w-full rounded-md border border-border bg-bg-elevated px-2 py-1.5 text-2xs text-text outline-none placeholder:text-text-faint focus:border-accent/50;
+  }
+}
+
+/* Dockview dark theme tuned to our palette. */
+.dockview-theme-borsa {
+  --dv-background-color: #0a0e14;
+  --dv-paneview-active-outline-color: #2f81f7;
+  --dv-tabs-and-actions-container-background-color: #0f141c;
+  --dv-activegroup-visiblepanel-tab-background-color: #151b26;
+  --dv-activegroup-hiddenpanel-tab-background-color: #0f141c;
+  --dv-inactivegroup-visiblepanel-tab-background-color: #11161f;
+  --dv-inactivegroup-hiddenpanel-tab-background-color: #0f141c;
+  --dv-tab-divider-color: #1e2733;
+  --dv-separator-border: #1e2733;
+  --dv-active-sash-color: #2f81f7;
+  --dv-tabs-and-actions-container-font-size: 12px;
+  --dv-tabs-and-actions-container-height: 34px;
+}

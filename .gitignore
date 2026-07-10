@@ -1,0 +1,40 @@
+# Node
+node_modules/
+dist/
+out/
+.vite/
+*.log
+npm-debug.log*
+
+# Electron build output
+apps/desktop/out/
+apps/desktop/dist/
+apps/desktop/release/
+
+# Python
+services/engine/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Env / secrets
+.env
+.env.local
+*.local
+
+# App data / db
+*.db
+*.sqlite
+*.sqlite3
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea/
+.vscode/*
+!.vscode/extensions.json

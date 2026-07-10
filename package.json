@@ -1,0 +1,30 @@
+{
+  "name": "borsa-ai-terminal",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI-powered desktop market terminal for BIST and US markets",
+  "author": "",
+  "license": "UNLICENSED",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "postinstall": "node scripts/fix-electron.mjs",
+    "dev": "node scripts/dev.mjs",
+    "fix:electron": "node scripts/fix-electron.mjs",
+    "dev:desktop": "npm run dev -w apps/desktop",
+    "dev:engine": "node scripts/engine.mjs",
+    "build:desktop": "npm run build -w apps/desktop",
+    "build:engine": "node scripts/build-engine.mjs",
+    "package": "npm run build:engine && npm run package -w apps/desktop",
+    "package:smoke": "node scripts/package-smoke.mjs",
+    "verify:keys": "node scripts/verify-keys.mjs",
+    "lint": "npm run lint -w apps/desktop"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

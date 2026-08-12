@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "description": "AI-powered desktop market terminal for BIST and US markets",
-  "author": "",
-  "license": "UNLICENSED",
+  "author": "Çağatay Çiftçi",
+  "license": "MIT",
   "workspaces": [
     "apps/*"
   ],

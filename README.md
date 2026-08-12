@@ -1,75 +1,107 @@
 # Borsa AI Terminal
 
-An AI-powered desktop market terminal for **Borsa Istanbul (BIST)** and **US
-markets (NYSE / NASDAQ / AMEX)** — like a personal, AI-driven Bloomberg Terminal.
+[![CI](https://github.com/cagataycifci/borsai/actions/workflows/ci.yml/badge.svg)](https://github.com/cagataycifci/borsai/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-- **UI:** Electron + React + TypeScript (dark, dockable, TradingView-style)
-- **Engine:** Python FastAPI sidecar (quant, data, news, AI, scheduler)
-- **Data:** free-tier (yfinance + Finnhub) behind swappable adapters
-- **AI:** multi-provider (Claude / OpenAI / Gemini / Ollama), chosen in Settings
+An open-source desktop market terminal for **Borsa Istanbul (BIST)** and **US markets**. It combines an Electron/React interface with a local FastAPI engine for market data, charts, watchlists, portfolio tracking, news, alerts, reports, and optional AI-assisted analysis.
 
-See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full design and
-[`docs/ROADMAP.md`](docs/ROADMAP.md) for phase status.
+> Project status: early public release. Core modules and automated tests exist, but installer verification, live-provider coverage, and independent user testing are still in progress.
+
+## Highlights
+
+- Electron + React + TypeScript desktop interface
+- FastAPI engine with REST and WebSocket APIs
+- BIST and US symbol search with yfinance/Finnhub adapters
+- Charts, indicators, volume profile, and drawing tools
+- Watchlists, portfolio tracking, alerts, news, and scheduled reports
+- Optional Claude, OpenAI, Gemini, and Ollama adapters
+- Local encrypted secrets store; keys are not exposed to the renderer
+- Offline/fake-provider test coverage for core behavior
+
+## Important limitations
+
+- Market data can be delayed, incomplete, or inaccurate.
+- BIST coverage currently uses a curated seed rather than a guaranteed complete official listing.
+- Live Finnhub and hosted AI-provider calls require users' own API keys and are not covered by offline CI.
+- Packaging scaffolding exists, but the Windows installer must be verified before a stable release.
+- This software is informational and does not provide financial advice or automated trade execution.
 
 ## Prerequisites
-- Node.js >= 20 and npm
-- Python >= 3.11
 
-## Setup
+- Node.js 20 or newer
+- Python 3.11 or newer
+- npm
+
+## Quick start
+
+### Windows helper
+
+```powershell
+.\setup.ps1
+```
+
+### Manual setup
 
 ```bash
-# 1. Install JS deps (root + workspaces)
 npm install
-
-# 2. Set up the Python engine
 cd services/engine
 python -m venv .venv
-# Windows:  .venv\Scripts\activate
+# Windows: .venv\Scripts\activate
 # macOS/Linux: source .venv/bin/activate
-pip install -e .
+pip install -e ".[dev]"
 cd ../..
 ```
 
-## Run (development)
+Run both components:
 
 ```bash
-# Boots the Python engine AND the Electron desktop app together
 npm run dev
 ```
 
-Or individually:
+Or run them separately:
 
 ```bash
-npm run dev:engine    # FastAPI on 127.0.0.1:8787
-npm run dev:desktop   # Electron + Vite
+npm run dev:engine
+npm run dev:desktop
 ```
 
-When running via the packaged app, the engine is spawned and supervised
-automatically by the Electron main process.
-
-## Package (production build)
+## Validation
 
 ```bash
-# Build the PyInstaller engine bundle, then the Electron installer
+cd services/engine
+python -m ruff check app
+python -m pytest -q
+cd ../..
+npm run typecheck -w apps/desktop
+npm run build -w apps/desktop
+```
+
+## Production packaging
+
+```bash
 npm run package
 ```
 
-Engine output: `services/engine/dist/borsa-engine/`  
-Desktop installer: `apps/desktop/release/`
-
-## CI
-
-GitHub Actions runs engine tests + ruff and desktop typecheck/build on push/PR
-(see `.github/workflows/ci.yml`).
+The engine bundle is written under `services/engine/dist/`; desktop artifacts are written under `apps/desktop/release/`.
 
 ## Project structure
 
-```
-apps/desktop      Electron + React app
-services/engine   Python FastAPI engine
-docs              Architecture, roadmap, handoff
-scripts           Dev orchestration scripts
+```text
+apps/desktop      Electron + React desktop application
+services/engine   FastAPI engine, data/AI adapters, persistence and tests
+docs              Architecture, roadmap, audit and licensing notes
+scripts           Development and packaging orchestration
 ```
 
-> **Disclaimer:** This software provides evidence-based analysis for
-> informational purposes only. It does not provide financial advice.
+## Documentation
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [Roadmap](docs/ROADMAP.md)
+- [Current status](PROJECT_STATUS.md)
+- [Security policy](SECURITY.md)
+- [Contributing](CONTRIBUTING.md)
+- [Dependency and licensing notes](docs/DEPENDENCY_AND_LICENSES.md)
+
+## License
+
+MIT. See [LICENSE](LICENSE).

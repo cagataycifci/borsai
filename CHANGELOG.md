@@ -4,6 +4,14 @@ All notable changes per session/phase. Dates are local.
 
 ## [Unreleased]
 
+### 2026-08-12 — OSS foundation and verification
+
+- Added MIT licensing, contribution, governance, support, conduct, and security policies.
+- Added issue/PR templates, Dependabot configuration, line-ending policy, and Windows setup helper.
+- Rewrote public status documentation to distinguish implemented features from release readiness.
+- Verified 64 engine tests, Ruff, desktop typecheck, and desktop production build.
+- Recorded the npm audit baseline and remaining packaging/live-provider verification work.
+
 ### Session 2026-07-09 — Phases 8–10 complete
 
 **Phase 8 — Scheduler & Reports**

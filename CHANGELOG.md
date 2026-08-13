@@ -4,6 +4,15 @@ All notable changes per session/phase. Dates are local.
 
 ## [Unreleased]
 
+### 2026-08-13 — Dependency and release hardening
+
+- Upgraded Electron, electron-builder, electron-vite, Vite, the React Vite plugin, and Node type definitions through a tested dependency branch.
+- Reduced the npm audit result from 24 findings to 0 known vulnerabilities without a forced audit upgrade.
+- Moved desktop CI to Node 22, deterministic `npm ci --ignore-scripts`, and a high-severity audit gate.
+- Produced and smoke-tested the PyInstaller engine bundle and unpacked Windows desktop package.
+- Produced an unsigned NSIS installer and documented remaining icon, signing, clean-machine, live-provider, and `google.genai` migration work.
+- Added an offline packaging path that reuses the locally installed, checksum-verified Electron distribution.
+
 ### 2026-08-12 — OSS foundation and verification
 
 - Added MIT licensing, contribution, governance, support, conduct, and security policies.

@@ -11,8 +11,8 @@
     "start": "electron-vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.web.json && tsc --noEmit -p tsconfig.node.json",
     "lint": "eslint . --ext .ts,.tsx",
-    "package": "npm run build && npx electron-builder --dir",
-    "package:win": "npm run build && npx electron-builder --win"
+    "package": "npm run build && npx electron-builder --dir --config.electronDist=../../node_modules/electron/dist",
+    "package:win": "npm run build && npx electron-builder --win --config.electronDist=../../node_modules/electron/dist"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.59.0",
@@ -26,23 +26,23 @@
     "zustand": "^5.0.1"
   },
   "devDependencies": {
-    "@types/node": "^22.9.0",
+    "@types/node": "^22.20.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.3",
+    "@vitejs/plugin-react": "^5.2.0",
     "autoprefixer": "^10.4.20",
-    "electron": "^33.2.0",
-    "electron-vite": "^2.3.0",
-    "electron-builder": "^25.1.8",
+    "electron": "^43.4.0",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^5.0.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
     "typescript": "^5.6.3",
-    "vite": "^5.4.11"
+    "vite": "^7.3.6"
   },
   "build": {
     "appId": "com.borsa.terminal",
     "productName": "Borsa AI Terminal",
-    "electronVersion": "33.4.11",
+    "electronVersion": "43.4.0",
     "directories": {
       "output": "release"
     },
@@ -54,11 +54,15 @@
       {
         "from": "../../services/engine/dist/borsa-engine",
         "to": "engine",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       }
     ],
     "win": {
-      "target": ["nsis"],
+      "target": [
+        "nsis"
+      ],
       "artifactName": "BorsaAI-Terminal-${version}-Setup.${ext}",
       "signAndEditExecutable": false
     },

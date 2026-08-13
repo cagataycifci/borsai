@@ -64,7 +64,8 @@
         "nsis"
       ],
       "artifactName": "BorsaAI-Terminal-${version}-Setup.${ext}",
-      "signAndEditExecutable": false
+      "icon": "build/icon.ico",
+      "signExecutable": false
     },
     "nsis": {
       "oneClick": false,

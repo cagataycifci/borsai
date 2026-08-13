@@ -13,7 +13,8 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const releaseDir = join(root, "apps/desktop/release/win-unpacked");
+const releaseDir = process.env.BORSA_RELEASE_DIR ||
+  join(root, "apps/desktop/release/win-unpacked");
 const appExe = join(releaseDir, "Borsa AI Terminal.exe");
 const engineExe = join(releaseDir, "resources/engine/borsa-engine.exe");
 const host = process.env.BORSA_ENGINE_HOST || "127.0.0.1";

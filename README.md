@@ -7,6 +7,14 @@ An open-source desktop market terminal for **Borsa Istanbul (BIST)** and **US ma
 
 > Project status: early public release. Core modules and automated tests exist, but installer verification, live-provider coverage, and independent user testing are still in progress.
 
+## Community and feedback
+
+- **Questions and ideas:** [GitHub Discussions](https://github.com/cagataycifci/borsai/discussions)
+- **Bug reports and feature requests:** [Issues](https://github.com/cagataycifci/borsai/issues)
+- **Contributing:** see [CONTRIBUTING.md](CONTRIBUTING.md)
+
+Early feedback matters most: if the installer, onboarding, or a specific market feature does not work for you, please open an issue — real-world reports directly shape the roadmap.
+
 ## Highlights
 
 - Electron + React + TypeScript desktop interface

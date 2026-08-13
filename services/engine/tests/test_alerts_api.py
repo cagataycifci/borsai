@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+from fastapi.testclient import TestClient
+
 from app.alerts import Alert
 from app.main import create_app
-from fastapi.testclient import TestClient
 
 
 def test_alerts_crud_and_events(initialized_db) -> None:

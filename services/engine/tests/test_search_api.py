@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from fastapi.testclient import TestClient
+
 from app.api.deps import get_global_search_service
 from app.data.models import Quote
 from app.data.service import MarketDataService
@@ -9,7 +11,6 @@ from app.db.repositories import SymbolRepository
 from app.db.session import session_scope
 from app.main import create_app
 from app.search import GlobalSearchService
-from fastapi.testclient import TestClient
 
 
 class _FakeAdapter:

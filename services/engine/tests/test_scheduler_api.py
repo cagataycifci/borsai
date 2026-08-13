@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from datetime import UTC, datetime, timedelta
 
+from fastapi.testclient import TestClient
+
 from app.api.deps import get_report_service
 from app.data.base import Interval, Range
 from app.data.models import Candle, Quote
@@ -15,7 +17,6 @@ from app.portfolio.service import PortfolioService
 from app.scheduler import ReportService
 from app.settings.service import SecretsService, SettingsService
 from app.watchlists.service import WatchlistService
-from fastapi.testclient import TestClient
 
 
 class _FakeAdapter:

@@ -6,7 +6,6 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
-
 _KAP_SAMPLE = [
     {
         "stockCode": "ACSEL",

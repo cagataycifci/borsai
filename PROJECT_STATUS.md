@@ -1,37 +1,48 @@
-# PROJECT_STATUS.md — Borsa AI Terminal
+# Project Status — Borsa AI Terminal
 
-_Last updated: 2026-07-09 (Phase 10 Hardening complete)._
+_Last verified: 2026-08-12._
 
-## Overall completion
-**100%** (10 of 10 phases complete).
+## Current stage
 
-| Metric | Value |
+**Early public release / OSS hardening.** Core product modules are implemented, but release engineering, dependency remediation, live-provider verification, and independent user testing remain in progress.
+
+## Verified locally
+
+| Check | Result |
 |---|---|
-| Phases complete | 10 / 10 |
-| Current phase | **All phases complete** |
-| Engine tests | 59 passing · ruff clean (app) |
-| Desktop | typecheck + build pass; CI configured |
-| Symbol universe | 12,610 symbols (US live + BIST seed) |
+| Engine tests | 64 passed; 1 third-party deprecation warning |
+| Python lint | Ruff passed |
+| Desktop typecheck | Passed |
+| Desktop production build | Passed |
+| GitHub Actions | Workflow present; remote result must be checked after push |
+| npm dependency audit | 24 findings: 2 moderate, 21 high, 1 critical |
+| Windows installer | Not verified in this audit |
+| Live Finnhub / hosted AI calls | Not verified without user credentials |
 
-## Current phase
-All 10 phases are **complete**. The terminal ships with market data, charts,
-watchlists, portfolio, news, AI, alerts, scheduled reports, global search,
-commentator consensus, CI, and packaging scaffolding (PyInstaller + electron-builder).
+## Implemented areas
 
-## Remaining / follow-up
-- **Live verification** of PyInstaller bundle + electron-builder installer on Windows
-  (run `npm run package` after `npm install`).
-- **BIST full listing** via KAP scraper (seed ~113 names today).
-- **Finnhub / AI live keys** unverified on dev machine (covered by fakes in tests).
-- **OpenAPI→TS codegen** — contracts are hand-mirrored; automate in a future pass.
+- Market-data adapters and local caching
+- Symbol universe and search
+- Charts, technical indicators, volume profile, and drawing tools
+- Watchlists and portfolio tracking
+- News, alerts, reports, and scheduling
+- Multi-provider AI abstraction
+- FastAPI REST/WebSocket engine
+- Electron/React desktop application
+- Offline/fake-provider automated tests
 
-## Technical debt
-1. BIST universe is a curated seed, not the full listing.
-2. Finnhub + AI providers unverified without API keys.
-3. TS contracts hand-mirrored from Pydantic.
-4. WS streaming polls every 5s (free tier).
-5. Economic calendar uses offline recurring logic (no live macro feed).
+## Release blockers
 
-## Health / blockers
-- Blockers: **none**.
-- Build/run: ✅ 59 engine tests + ruff + desktop typecheck + build + GitHub Actions CI.
+1. Triage and remediate npm audit findings without untested forced upgrades.
+2. Verify a normal clean `npm ci`, including Electron binary installation.
+3. Build and smoke-test the Windows installer and bundled Python engine.
+4. Complete at least one independent clean-machine installation test.
+5. Validate live provider behavior with intentionally supplied test credentials.
+
+## Known limitations
+
+- BIST universe is currently a curated seed.
+- Free market-data sources can be delayed or incomplete.
+- AI output is probabilistic and must be checked against source data.
+- OpenAPI-to-TypeScript contracts are manually mirrored.
+- The project has not yet demonstrated broad adoption or ecosystem dependence.

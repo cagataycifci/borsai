@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "description": "Borsa AI Terminal desktop app (Electron + React)",
   "main": "./out/main/index.js",
-  "author": "",
-  "license": "UNLICENSED",
+  "author": "Çağatay Çiftçi",
+  "license": "MIT",
   "scripts": {
     "dev": "electron-vite dev",
     "build": "electron-vite build",

@@ -17,8 +17,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install engine
-        run: pip install -e ".[dev]"
+      - name: Install engine and audit tooling
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]" pip-audit
+      - name: Audit Python dependencies
+        run: python -m pip_audit
       - name: Ruff
         run: python -m ruff check app
       - name: Pytest
@@ -33,10 +37,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: npm
       - name: Install
-        run: npm install
+        run: npm ci --ignore-scripts
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
       - name: Typecheck
         run: npm run typecheck -w apps/desktop
       - name: Build

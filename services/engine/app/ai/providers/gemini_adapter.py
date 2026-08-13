@@ -1,5 +1,4 @@
-"""Google Gemini provider (optional). Uses ``google-generativeai``, imported
-lazily so it is only required when Gemini is the active provider."""
+"""Google Gemini provider using the supported ``google-genai`` SDK."""
 
 from __future__ import annotations
 
@@ -7,10 +6,8 @@ from collections.abc import AsyncIterator
 
 from app.ai.base import ProviderError
 
-# gemini-1.5-* was shut down; use the current Flash workhorse.
 DEFAULT_MODEL = "gemini-2.5-flash"
 
-# Names users / the Settings UI accidentally persist as ``ai.model``.
 _MODEL_ALIASES: dict[str, str] = {
     "gemini": DEFAULT_MODEL,
     "gemini-pro": "gemini-2.5-pro",
@@ -22,7 +19,7 @@ _MODEL_ALIASES: dict[str, str] = {
 
 
 def resolve_gemini_model(model: str | None) -> str:
-    """Map blank / alias / deprecated names onto a live Gemini model id."""
+    """Map blank, alias, and deprecated names onto a current model id."""
     if not model or not str(model).strip():
         return DEFAULT_MODEL
     key = str(model).strip()
@@ -32,12 +29,19 @@ def resolve_gemini_model(model: str | None) -> str:
 
 
 def _to_contents(messages: list[dict[str, str]]) -> list[dict[str, object]]:
-    """Map chat messages (user/assistant) to Gemini's user/model roles."""
+    """Map chat messages to Gemini's user/model roles."""
     contents: list[dict[str, object]] = []
-    for m in messages:
-        role = "model" if m["role"] == "assistant" else "user"
-        contents.append({"role": role, "parts": [m["content"]]})
+    for message in messages:
+        role = "model" if message["role"] == "assistant" else "user"
+        contents.append({"role": role, "parts": [{"text": message["content"]}]})
     return contents
+
+
+def _config(system: str | None, max_tokens: int) -> dict[str, object]:
+    config: dict[str, object] = {"max_output_tokens": max_tokens}
+    if system:
+        config["system_instruction"] = system
+    return config
 
 
 class GeminiProvider:
@@ -45,30 +49,27 @@ class GeminiProvider:
 
     def __init__(self, api_key: str, model: str | None = None) -> None:
         try:
-            import google.generativeai as genai
+            from google import genai
         except ImportError as exc:  # pragma: no cover - optional dep
             raise ProviderError(
-                "The 'google-generativeai' package is not installed. Run "
-                "`pip install google-generativeai`."
+                "The 'google-genai' package is not installed. Run "
+                "`pip install google-genai`."
             ) from exc
-        genai.configure(api_key=api_key)
         self.model = resolve_gemini_model(model)
-        self._genai = genai
-
-    def _model(self, system: str | None):
-        return self._genai.GenerativeModel(self.model, system_instruction=system or None)
+        self._client = genai.Client(api_key=api_key)
 
     async def complete(
         self, system: str, prompt: str, *, max_tokens: int = 2048
     ) -> str:
         try:
-            resp = await self._model(system).generate_content_async(
-                prompt,
-                generation_config={"max_output_tokens": max_tokens},
+            response = await self._client.aio.models.generate_content(
+                model=self.model,
+                contents=prompt,
+                config=_config(system, max_tokens),
             )
         except Exception as exc:  # noqa: BLE001
             raise ProviderError(str(exc)) from exc
-        return resp.text or ""
+        return response.text or ""
 
     async def stream(
         self,
@@ -78,16 +79,16 @@ class GeminiProvider:
         max_tokens: int = 2048,
     ) -> AsyncIterator[str]:
         try:
-            resp = await self._model(system).generate_content_async(
-                _to_contents(messages),
-                generation_config={"max_output_tokens": max_tokens},
-                stream=True,
+            response = await self._client.aio.models.generate_content_stream(
+                model=self.model,
+                contents=_to_contents(messages),
+                config=_config(system, max_tokens),
             )
-            async for chunk in resp:
+            async for chunk in response:
                 if chunk.text:
                     yield chunk.text
         except Exception as exc:  # noqa: BLE001
             raise ProviderError(str(exc)) from exc
 
     async def aclose(self) -> None:
-        return None
+        await self._client.aio.aclose()

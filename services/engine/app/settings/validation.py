@@ -91,17 +91,19 @@ async def _verify_gemini(api_key: str) -> tuple[bool, str]:
     import asyncio
 
     try:
-        import google.generativeai as genai
+        from google import genai
     except ImportError:
-        return False, "google-generativeai package not installed in engine venv"
+        return False, "google-genai package not installed in engine venv"
+    client = genai.Client(api_key=api_key)
     try:
-        genai.configure(api_key=api_key)
-        models = await asyncio.to_thread(lambda: list(genai.list_models()))
+        models = await asyncio.to_thread(lambda: list(client.models.list()))
         if not models:
             return False, "Gemini returned no models — key may be invalid"
         return True, "Gemini key verified"
     except Exception as exc:  # noqa: BLE001
         return False, str(exc)
+    finally:
+        client.close()
 
 
 async def _verify_ollama() -> tuple[bool, str]:

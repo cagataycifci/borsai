@@ -12,7 +12,12 @@ from PyInstaller.utils.hooks import collect_submodules
 
 block_cipher = None
 
-hiddenimports = collect_submodules("app") + collect_submodules("uvicorn") + collect_submodules("google.generativeai") + ["google.generativeai"]
+hiddenimports = (
+    collect_submodules("app")
+    + collect_submodules("uvicorn")
+    + collect_submodules("google.genai")
+    + ["google.genai"]
+)
 
 a = Analysis(
     ["app/main.py"],

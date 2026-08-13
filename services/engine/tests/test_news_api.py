@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+from fastapi.testclient import TestClient
+
 from app.api.deps import get_news_service
 from app.main import create_app
 from app.news import NewsItem, NewsService
-from fastapi.testclient import TestClient
 
 
 class _FakeSource:

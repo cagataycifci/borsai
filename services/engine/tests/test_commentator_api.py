@@ -5,15 +5,16 @@ from __future__ import annotations
 import json
 from collections.abc import AsyncIterator
 
+from fastapi.testclient import TestClient
+
 from app.ai import AIService
 from app.api.deps import get_commentator_service
+from app.commentator import CommentatorService
 from app.data.models import Quote
 from app.data.service import MarketDataService
 from app.main import create_app
 from app.news import NewsItem, NewsService
-from app.commentator import CommentatorService
 from app.settings.service import SecretsService, SettingsService
-from fastapi.testclient import TestClient
 
 
 class _FakeProvider:

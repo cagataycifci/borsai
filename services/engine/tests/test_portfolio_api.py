@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
+from fastapi.testclient import TestClient
+
 from app.api.deps import get_market_data
 from app.data.base import Interval, Range
 from app.data.models import Candle, Fundamentals, Quote, SymbolRef
 from app.data.service import MarketDataService
 from app.main import create_app
-from fastapi.testclient import TestClient
 
 
 class _FakeAdapter:

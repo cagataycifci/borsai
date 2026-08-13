@@ -2,9 +2,6 @@
 
 from __future__ import annotations
 
-from datetime import UTC, datetime
-
-from app.data.models import Quote
 from app.scheduler.schemas import QuoteSnapshot, ReportRegion
 from app.scheduler.summary import _template_overview
 

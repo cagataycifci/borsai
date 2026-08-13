@@ -6,6 +6,8 @@ import json
 from collections.abc import AsyncIterator
 from datetime import UTC, datetime, timedelta
 
+from fastapi.testclient import TestClient
+
 from app.ai import AIService
 from app.api.deps import get_ai_service
 from app.data.base import Interval, Range
@@ -14,7 +16,6 @@ from app.data.service import MarketDataService
 from app.main import create_app
 from app.news import NewsItem, NewsService
 from app.settings.service import SecretsService, SettingsService
-from fastapi.testclient import TestClient
 
 
 class _FakeAdapter:

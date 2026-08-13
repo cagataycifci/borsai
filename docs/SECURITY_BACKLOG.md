@@ -17,6 +17,7 @@ The Node dependency backlog was remediated on a dedicated branch through tested 
 
 - Dependency installation and lockfile refresh
 - `npm audit --audit-level=high`
+- `pip-audit` with 0 known vulnerabilities after upgrading `pip`
 - Desktop TypeScript typecheck
 - Desktop production build
 - PyInstaller engine build
@@ -28,6 +29,6 @@ The Node dependency backlog was remediated on a dedicated branch through tested 
 
 1. Add code signing and a documented release-key process before distributing a production installer.
 2. Run dependency and installer checks on a clean Windows machine.
-3. Add Python dependency vulnerability scanning to CI and consider a tested constraints/lock strategy.
+3. Consider a tested Python constraints/lock strategy for reproducible releases.
 4. Migrate deprecated `google.generativeai` usage to the maintained `google.genai` SDK.
 5. Continue Dependabot review; never merge dependency upgrades without tests and release checks.

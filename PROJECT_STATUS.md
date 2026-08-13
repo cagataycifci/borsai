@@ -15,11 +15,12 @@ _Last verified: 2026-08-13._
 | Desktop typecheck | Passed |
 | Desktop production build | Passed with Vite 7.3.6 |
 | npm dependency audit | 0 known vulnerabilities |
+| Python dependency audit | 0 known vulnerabilities after upgrading the environment's pip; local package skipped because it is not published on PyPI |
 | Python engine bundle | PyInstaller bundle produced |
 | Windows unpacked package | Produced with Electron 43.4.0 |
 | Package runtime smoke | Bundled engine `/health` passed |
 | Windows NSIS installer | Produced; unsigned and using the default Electron icon |
-| GitHub Actions | Node 22, deterministic install, npm audit, typecheck, build, Ruff, and pytest configured; remote result must be checked after push |
+| GitHub Actions | Node 22, deterministic install, npm audit, pip-audit, typecheck, build, Ruff, and pytest configured; remote result must be checked after push |
 | Live Finnhub / hosted AI calls | Not verified without intentionally supplied test credentials |
 
 ## Implemented areas

@@ -14,6 +14,7 @@ The canonical GitHub snapshot was recovered into a separate working directory an
 - Desktop TypeScript typecheck: passed.
 - Electron/Vite production build: passed with Electron 43.4.0, electron-builder 26.15.3, electron-vite 5.0.0, and Vite 7.3.6.
 - `npm audit`: **0 known vulnerabilities** after tested dependency upgrades.
+- `pip-audit`: **0 known vulnerabilities** after upgrading the audit environments' `pip`; the local unpublished `borsa-engine` package was skipped as expected.
 - PyInstaller engine bundle produced successfully.
 - Windows unpacked Electron package produced successfully.
 - Package smoke test started the bundled engine and received a healthy `/health` response.

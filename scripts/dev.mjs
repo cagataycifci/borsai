@@ -18,11 +18,13 @@ const procs = [
   },
   {
     name: "desktop",
-    // `.cmd` shims (npx/electron-vite) must be launched through a shell on Windows.
-    cmd: isWin ? "npx.cmd" : "npx",
-    args: ["electron-vite", "dev"],
+    // Run the electron-vite CLI through Node directly: `.cmd` shims would need
+    // `shell: true`, and passing args with a shell triggers Node DEP0190 and
+    // unsafe argument concatenation.
+    cmd: process.execPath,
+    args: [join(root, "node_modules", "electron-vite", "bin", "electron-vite.js"), "dev"],
     cwd: join(root, "apps", "desktop"),
-    shell: isWin,
+    shell: false,
     // Tell the Electron engine manager that *we* own the engine, so it waits for
     // it instead of double-spawning a second uvicorn (which would collide on the
     // port and surface a false "engine offline" error).

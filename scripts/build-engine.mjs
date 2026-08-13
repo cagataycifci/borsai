@@ -18,10 +18,13 @@ const venvPython = join(
   ".venv",
   isWin ? "Scripts/python.exe" : "bin/python",
 );
-const python = existsSync(venvPython) ? venvPython : isWin ? "python" : "python3";
+// Never use `shell: true` with an args array (Node DEP0190): the args would be
+// concatenated unescaped. Absolute paths and `python.exe` resolve fine without
+// a shell on every platform.
+const python = existsSync(venvPython) ? venvPython : isWin ? "python.exe" : "python3";
 
 function run(cmd, args, cwd) {
-  const r = spawnSync(cmd, args, { cwd, stdio: "inherit", shell: isWin });
+  const r = spawnSync(cmd, args, { cwd, stdio: "inherit", shell: false });
   if (r.status !== 0) process.exit(r.status ?? 1);
 }
 

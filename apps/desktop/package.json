@@ -15,7 +15,7 @@
     "package:win": "npm run build && npx electron-builder --win --config.electronDist=../../node_modules/electron/dist"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.59.0",
+    "@tanstack/react-query": "^5.101.4",
     "clsx": "^2.1.1",
     "dockview": "^4.2.0",
     "lightweight-charts": "^4.2.1",
